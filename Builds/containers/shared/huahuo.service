@@ -1,0 +1,15 @@
+[Unit]
+Description=Ripple Daemon
+
+[Service]
+Type=simple
+ExecStart=/opt/ripple/bin/huahuo --net --silent --conf /etc/opt/ripple/huahuo.cfg
+# Default KillSignal can be used if/when huahuo handles SIGTERM
+KillSignal=SIGINT
+Restart=no
+User=huahuo
+Group=huahuo
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

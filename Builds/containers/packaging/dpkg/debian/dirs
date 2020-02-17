@@ -1,0 +1,3 @@
+/var/log/huahuo/
+/var/lib/huahuo/
+/etc/systemd/system/huahuo.service.d/

@@ -1,0 +1,62 @@
+sudo: false
+language: cpp
+dist: xenial
+
+env:
+  global:
+    # Maintenance note: to move to a new version
+    # of boost, update both BOOST_ROOT and BOOST_URL.
+    # Note that for simplicity, BOOST_ROOT's final
+    # namepart must match the folder name internal
+    # to boost's .tar.gz.
+    - LCOV_ROOT=$HOME/lcov
+    - GDB_ROOT=$HOME/gdb
+    - BOOST_ROOT=$HOME/boost_1_70_0
+    - BOOST_URL='http://sourceforge.net/projects/boost/files/boost/1.70.0/boost_1_70_0.tar.gz'
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-xenial-7
+    packages:
+      - gcc-7
+      - g++-7
+      - gcc-8
+      - g++-8
+      - python-software-properties
+      - protobuf-compiler
+      - libprotobuf-dev
+      - libssl-dev
+      - libstdc++6
+      - binutils-gold
+      - cmake
+      - lcov
+      - llvm-7
+      - clang-7
+
+matrix:
+  include:
+    - compiler: gcc
+      env: GCC_VER=7 BUILD_TYPE=Debug
+    - compiler: clang
+      env: GCC_VER=7 BUILD_TYPE=Debug
+
+cache:
+  directories:
+  - $BOOST_ROOT
+  - .nih_c
+
+before_install:
+  - bin/ci/ubuntu/install-dependencies.sh
+
+script:
+  - travis_wait 35 bin/ci/ubuntu/build-and-test.sh
+
+notifications:
+  email:
+    false
+  irc:
+    channels:
+      - "chat.freenode.net#ripple-dev"
+

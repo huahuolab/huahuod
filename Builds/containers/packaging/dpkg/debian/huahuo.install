@@ -1,0 +1,7 @@
+opt/ripple/bin/huahuo
+opt/ripple/bin/validator-keys
+opt/ripple/bin/update-huahuo.sh
+opt/ripple/etc/huahuo.cfg
+opt/ripple/etc/validators.txt
+opt/ripple/etc/update-huahuo-cron
+etc/logrotate.d/huahuo

@@ -1,0 +1,3 @@
+opt/ripple/etc/huahuo.cfg etc/opt/ripple/huahuo.cfg
+opt/ripple/etc/validators.txt etc/opt/ripple/validators.txt
+opt/ripple/bin/huahuo usr/local/bin/huahuo

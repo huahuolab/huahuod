@@ -1,0 +1,35 @@
+#!/bin/sh
+set -e
+
+USER_NAME=huahuo
+GROUP_NAME=huahuo
+case "$1" in
+    configure)
+        id -u $USER_NAME >/dev/null 2>&1 || \
+        adduser --system --quiet \
+            --home /nonexistent --no-create-home \
+            --disabled-password \
+            --group "$GROUP_NAME"
+        chown -R $USER_NAME:$GROUP_NAME /var/log/huahuo/
+        chown -R $USER_NAME:$GROUP_NAME /var/lib/huahuo/
+        chown -R $USER_NAME:$GROUP_NAME /opt/ripple
+        chmod 755 /var/log/huahuo/
+        chmod 755 /var/lib/huahuo/
+        chmod 644 /opt/ripple/etc/update-huahuo-cron
+        chmod 644 /etc/logrotate.d/huahuo
+        chown -R root:$GROUP_NAME /opt/ripple/etc/update-huahuo-cron
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+
+#DEBHELPER#
+
+exit 0
